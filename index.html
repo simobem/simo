@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-
-  <title>Download Freepik Files</title>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+  <meta charset="UTF-8">
+  <title>Download Freepik Image</title>
 </head>
 <body>
-  <div id="main-container"></div>
-    <div id="image-container"> </div>
-      <img src="https://i.ibb.co/PFxhMtH/Freepik-svg.png" alt="Example image" width="300">
-   
+  <div id="main-container">
+    <label for="input-box">Enter a freepik link :</label>
+    <input type="text" id="input-box" placeholder="e.g. https://fr.freepik.com/download-file/12345678">
+    <button id="download-button">Download</button>
+    <div id="result-container"></div>
+  </div>
+  <div id="image-container"></div>
 
   <script>
-    window.addEventListener('load', function() {
+  window.addEventListener('load', function() {
   const url = 'https://i.ibb.co/PFxhMtH/Freepik-svg.png';
+
+  // Link HTML elements by id
+  const inputBox = document.getElementById('input-box');
+  const downloadButton = document.getElementById('download-button');
+  const resultLabel = document.getElementById('result-container');
+  const imageContainer = document.getElementById('image-container');
 
   // Download the image from the website and create a new Image object
   const img = new Image();
@@ -31,50 +37,8 @@
     const imgEl = document.createElement('img');
     imgEl.src = canvas.toDataURL();
     imgEl.style.marginBottom = '5px';
-    document.getElementById('image-container').appendChild(imgEl);
+    imageContainer.appendChild(imgEl);
   };
-
-  const helloLabel = document.createElement('label');
-  helloLabel.textContent = 'Enter a freepik link :';
-  helloLabel.style.fontFamily = 'Arial';
-  helloLabel.style.fontSize = '14px';
-  helloLabel.style.display = 'block';
-  document.getElementById('main-container').appendChild(helloLabel);
-
-  const inputBox = document.createElement('input');
-  inputBox.type = 'text';
-  inputBox.id = 'input-box';
-  inputBox.placeholder = 'e.g. https://fr.freepik.com/download-file/12345678';
-  inputBox.style.fontFamily = 'Arial';
-  inputBox.style.fontSize = '14px';
-  inputBox.style.marginBottom = '10px';
-  document.getElementById('main-container').appendChild(inputBox);
-
-  const downloadButton = document.createElement('button');
-  downloadButton.id = 'download-button';
-  downloadButton.textContent = 'Download';
-  downloadButton.style.fontFamily = 'Arial';
-  downloadButton.style.fontSize = '15px';
-  downloadButton.style.backgroundColor = 'green';
-  downloadButton.style.color = 'white';
-  downloadButton.style.padding = '15px 30px';
-  downloadButton.style.border = 'none';
-  downloadButton.style.cursor = 'pointer';
-  downloadButton.style.transition = 'background-color 0.3s ease-in-out'
-  downloadButton.addEventListener('mouseover', function() {
-  downloadButton.style.backgroundColor = 'darkgreen';});
-  downloadButton.addEventListener('mouseout', function() {
-    downloadButton.style.backgroundColor = 'green'; // change it back to original color on mouseout
-  });
-  downloadButton.style.borderRadius = '10px';
-  document.getElementById('main-container').appendChild(downloadButton);
-
-  const resultLabel = document.createElement('div');
-  resultLabel.id = 'result-container';
-  resultLabel.style.fontFamily = 'Arial';
-  resultLabel.style.fontSize = '14px';
-  resultLabel.style.marginTop = '20px';
-  document.getElementById('main-container').appendChild(resultLabel);
 
   downloadButton.addEventListener('click', function() {
     const inputText = inputBox.value;
