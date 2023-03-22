@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+
+  <title>Download Freepik Files</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+  <div id="main-container"></div>
+    <div id="image-container"> </div>
+      <img src="https://i.ibb.co/PFxhMtH/Freepik-svg.png" alt="Example image" width="300">
+   
+
+  <script>
+    window.addEventListener('load', function() {
+  const url = 'https://i.ibb.co/PFxhMtH/Freepik-svg.png';
+
+  // Download the image from the website and create a new Image object
+  const img = new Image();
+  img.src = url;
+  img.onload = function() {
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width / 2;
+    canvas.height = img.height / 2;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    // Create an HTML element for the image and add it to the page
+    const imgEl = document.createElement('img');
+    imgEl.src = canvas.toDataURL();
+    imgEl.style.marginBottom = '5px';
+    document.getElementById('image-container').appendChild(imgEl);
+  };
+
+  const helloLabel = document.createElement('label');
+  helloLabel.textContent = 'Enter a freepik link :';
+  helloLabel.style.fontFamily = 'Arial';
+  helloLabel.style.fontSize = '14px';
+  helloLabel.style.display = 'block';
+  document.getElementById('main-container').appendChild(helloLabel);
+
+  const inputBox = document.createElement('input');
+  inputBox.type = 'text';
+  inputBox.id = 'input-box';
+  inputBox.placeholder = 'e.g. https://fr.freepik.com/download-file/12345678';
+  inputBox.style.fontFamily = 'Arial';
+  inputBox.style.fontSize = '14px';
+  inputBox.style.marginBottom = '10px';
+  document.getElementById('main-container').appendChild(inputBox);
+
+  const downloadButton = document.createElement('button');
+  downloadButton.id = 'download-button';
+  downloadButton.textContent = 'Download';
+  downloadButton.style.fontFamily = 'Arial';
+  downloadButton.style.fontSize = '15px';
+  downloadButton.style.backgroundColor = 'green';
+  downloadButton.style.color = 'white';
+  downloadButton.style.padding = '15px 30px';
+  downloadButton.style.border = 'none';
+  downloadButton.style.cursor = 'pointer';
+  downloadButton.style.transition = 'background-color 0.3s ease-in-out'
+  downloadButton.addEventListener('mouseover', function() {
+  downloadButton.style.backgroundColor = 'darkgreen';});
+  downloadButton.addEventListener('mouseout', function() {
+    downloadButton.style.backgroundColor = 'green'; // change it back to original color on mouseout
+  });
+  downloadButton.style.borderRadius = '10px';
+  document.getElementById('main-container').appendChild(downloadButton);
+
+  const resultLabel = document.createElement('div');
+  resultLabel.id = 'result-container';
+  resultLabel.style.fontFamily = 'Arial';
+  resultLabel.style.fontSize = '14px';
+  resultLabel.style.marginTop = '20px';
+  document.getElementById('main-container').appendChild(resultLabel);
+
+  downloadButton.addEventListener('click', function() {
+    const inputText = inputBox.value;
+    const regex = /(?<!\d)\d{7,8}(?!\d)/;
+    const match = inputText.match(regex);
+    if (!match) {
+      resultLabel.textContent = 'Please enter a freepik link';
+      resultLabel.classList.add('error');
+      resultLabel.classList.remove('success');
+    } else {
+      const number = match[0];
+      const downloadUrl = `https://fr.freepik.com/download-file/${number}`;
+      window.open(downloadUrl);
+      resultLabel.textContent = 'The file downloaded successfully';
+      resultLabel.classList.add('success');
+      resultLabel.classList.remove('error');
+      inputBox.value = '';
+    }
+  });
+});
+
+
+    </script>
+</body>
+</html>
