@@ -1,49 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Download Freepik Image</title>
-</head>
-<body>
-  <div id="main-container">
-    <label for="input-box">Enter a freepik link :</label>
-    <input type="text" id="input-box" placeholder="e.g. https://fr.freepik.com/download-file/12345678">
-    <button id="download-button">Download</button>
-    <div id="result-container"></div>
-  </div>
-  <div id="image-container"></div>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Download Freepik Files</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      body {
+        background-color: black;
 
-  <script>
- window.addEventListener('load', function() {
-  const url = 'https://i.ibb.co/PFxhMtH/Freepik-svg.png';
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+      }
 
-  // Link HTML elements by id
-  const inputBox = document.getElementById('input-box');
-  const downloadButton = document.getElementById('download-button');
-  const resultLabel = document.getElementById('result-container');
-  const imageContainer = document.getElementById('image-container');
+      #main-container {
+        margin-top: 130px;
+        text-align: center;
+        padding: 20px;
+      }
 
-  // Download the image from the website and create a new Image object
-  const img = new Image();
-  img.src = url;
-  img.onload = function() {
-    const canvas = document.createElement('canvas');
-    canvas.width = img.width / 2;
-    canvas.height = img.height / 2;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      #image-container img {
+        margin-bottom: 5px;
+      }
 
-    // Create an HTML element for the image and add it to the page
-    const imgEl = document.createElement('img');
-    imgEl.src = canvas.toDataURL();
-    imgEl.style.marginBottom = '5px';
-    imageContainer.appendChild(imgEl);
-  };
+      label {
+        display: block;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+      }
 
-  downloadButton.addEventListener('click', function() {
-    const inputText = inputBox.value;
-    const regex = /(?<!\d)\d{7,8}(?!\d)/;
-    const match = inputText.match(regex);
+      input {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        background-color: green;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        padding: 15px 30px;
+        transition: background-color 0.3s ease-in-out;
+      }
+
+      button:hover {
+        background-color: blue;
+      }
+
+      .error {
+        color: red;
+      }
+
+      .success {
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main-container">
+      <div id="image-container">
+        <img src="https://i.ibb.co/PFxhMtH/Freepik-svg.png" alt="Example image" width="400" />
+      </div>
+      <br>
+      <span style="color: aliceblue;">Enter a freepik link : </span><input style ="width: 400px;" type="text" id="input-box" placeholder="paste your link here " />
+      <br>
+      <button id="download-button">Download</button>
+
+      <div id="result-container"></div>
+
+      
+    </div>
+
+    <script>
+      window.addEventListener("load", function () {
+
+        const downloadButton = document.getElementById("download-button");
+
+        const resultLabel = document.getElementById("result-container");
+
+        downloadButton.addEventListener("click", function () {
+          const inputText = document.getElementById("input-box").value;
+          const regex = /(?<!\d)\d{7,8}(?!\d)/;
+          const match = inputText.match(regex);
     if (!match) {
       resultLabel.textContent = 'Please enter a freepik link';
       resultLabel.classList.add('error');
@@ -64,3 +107,4 @@
     </script>
 </body>
 </html>
+
